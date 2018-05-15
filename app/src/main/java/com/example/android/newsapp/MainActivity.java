@@ -59,11 +59,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    /**
-     * Url constructor
-     */
-    private Uri.Builder uriBuilder;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,9 +154,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         Set<String> sectionValues = sharedPrefs.getStringSet(getString(R.string.settings_section_key), null);
 
-        if (sectionValues != null) {
+        String sections = "";
 
-            String sections = "";
+        if (sectionValues != null) {
 
             for (String section : sectionValues) {
 
@@ -180,46 +175,84 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 sections = sb.toString();
 
             }
+        }
 
-            String fromDate = sharedPrefs.getString(
-                    getString(R.string.settings_from_date_key),
-                    getString(R.string.settings_from_date_default));
+        String fromDate = sharedPrefs.getString(
+                getString(R.string.settings_from_date_key),
+                getString(R.string.settings_from_date_default));
 
-            String toDate = sharedPrefs.getString(
-                    getString(R.string.settings_to_date_key),
-                    getString(R.string.settings_to_date_default));
+        String toDate = sharedPrefs.getString(
+                getString(R.string.settings_to_date_key),
+                getString(R.string.settings_to_date_default));
 
-            String keywordSearch = sharedPrefs.getString(
-                    getString(R.string.settings_keyword_search_key),
-                    getString(R.string.settings_keyword_search_default));
+        String keywordSearch = sharedPrefs.getString(
+                getString(R.string.settings_keyword_search_key),
+                getString(R.string.settings_keyword_search_default));
 
-            String orderBy = sharedPrefs.getString(
-                    getString(R.string.settings_order_by_key),
-                    getString(R.string.settings_order_by_default));
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
 
-            String pageSize = sharedPrefs.getString(
-                    getString(R.string.settings_page_size_key),
-                    getString(R.string.settings_page_size_default));
+        String pageSize = sharedPrefs.getString(
+                getString(R.string.settings_page_size_key),
+                getString(R.string.settings_page_size_default));
 
-            Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
-            uriBuilder = baseUri.buildUpon();
+        Uri.Builder uriBuilder;
 
-            uriBuilder.appendQueryParameter("format", "json");
-            uriBuilder.appendQueryParameter("use-date", "published");
-            uriBuilder.appendQueryParameter("show-tags", "contributor");
-            uriBuilder.appendQueryParameter("show-fields", "all");
-            uriBuilder.appendQueryParameter("api-key", "6564320b-a05d-4650-9396-17c26f5f3582");
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+        uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "json");
+        uriBuilder.appendQueryParameter("use-date", "published");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("show-fields", "all");
+        uriBuilder.appendQueryParameter("api-key", "6564320b-a05d-4650-9396-17c26f5f3582");
+
+        if (pageSize.isEmpty()) {
+
+            uriBuilder.appendQueryParameter("", "");
+
+        } else {
+
             uriBuilder.appendQueryParameter("page-size", pageSize);
-            uriBuilder.appendQueryParameter("section", sections);
-            uriBuilder.appendQueryParameter("from-date", fromDate);
-            uriBuilder.appendQueryParameter("to-date", toDate);
-            uriBuilder.appendQueryParameter("q", keywordSearch);
-            uriBuilder.appendQueryParameter("order-by", orderBy);
-
-            // Log for checking if constructed URL is ok.
-            Log.v(LOG_TAG, getResources().getString(R.string.built_url) + uriBuilder);
 
         }
+
+        if (sections.isEmpty()) {
+
+            uriBuilder.appendQueryParameter("", "");
+
+        } else {
+
+            uriBuilder.appendQueryParameter("section", sections);
+
+        }
+
+        if (fromDate.isEmpty()) {
+
+            uriBuilder.appendQueryParameter("", "");
+
+        } else {
+
+            uriBuilder.appendQueryParameter("from-date", fromDate);
+
+        }
+
+        if (toDate.isEmpty()) {
+
+            uriBuilder.appendQueryParameter("", "");
+
+        } else {
+
+            uriBuilder.appendQueryParameter("to-date", toDate);
+
+        }
+
+        uriBuilder.appendQueryParameter("q", keywordSearch);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+
+        // Log for checking if constructed URL is ok.
+        Log.v(LOG_TAG, getResources().getString(R.string.built_url) + uriBuilder);
 
         // Create a new loader for the given URL
         return new NewsLoader(this, uriBuilder.toString());

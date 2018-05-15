@@ -26,11 +26,11 @@
     <string name="settings_keyword_search_key">q</string>
     <string name="settings_keyword_search_default">news</string>
 
-    <string name="settings_from_date_label">Search from date&#8230;</string>
+    <string name="settings_from_date_label">Search from date&#8230;\u0020(format:\u0020rrrr-mm-dd)</string>
     <string name="settings_from_date_key" translatable="false">from-date</string>
     <string name="settings_from_date_default" translatable="false">2018-03-01</string>
 
-    <string name="settings_to_date_label">Search to date&#8230;</string>
+    <string name="settings_to_date_label">Search to date&#8230;\u0020(format:\u0020rrrr-mm-dd)</string>
     <string name="settings_to_date_key" translatable="false">to-date</string>
     <string name="settings_to_date_default" translatable="false">2018-05-06</string>
 

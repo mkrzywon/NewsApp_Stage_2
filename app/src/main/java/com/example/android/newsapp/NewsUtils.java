@@ -47,7 +47,9 @@ class NewsUtils {
     /**
      * empty string in case of situation there's no json data
      */
-    private static final String KEY_EMPTY = "";
+    private static final String KEY_NO_AUTHOR = "No author";
+    private static final String KEY_NO_THUMBNAIL = "No thumbnail";
+    private static final String KEY_NO_TRAIL_TEXT = "No trail text";
 
     private NewsUtils() {
     }
@@ -232,21 +234,32 @@ class NewsUtils {
                         // Extract the value for the key called "trailText"
                         trailText = fieldsObject.getString(KEY_TRAIL_TEXT);
 
+                    } else {
+
+                        trailText = KEY_NO_TRAIL_TEXT;
+                    }
+
+                    if (fieldsObject.has(KEY_THUMBNAIL)) {
+
                         // Extract the value for the key called "thumbnail"
                         thumbnailUrl = fieldsObject.getString(KEY_THUMBNAIL);
+
+                    } else {
+
+                        thumbnailUrl = KEY_NO_THUMBNAIL;
+
+                    }
+
+                    if (fieldsObject.has(KEY_AUTHOR)) {
 
                         // Extract the value for the key called "webTitle"
                         author = fieldsObject.getString(KEY_AUTHOR);
 
+                    } else {
+
+                        author = KEY_NO_AUTHOR;
+
                     }
-
-                    // return empty strings in case of situation where there's no filed object
-                } else {
-
-                    trailText = KEY_EMPTY;
-                    thumbnailUrl = KEY_EMPTY;
-                    author = KEY_EMPTY;
-
                 }
 
                 // Create a new {@link News} object with the category, date, title,
