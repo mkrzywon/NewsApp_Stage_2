@@ -1,4 +1,4 @@
-# NewsApp_Stage_1
+# NewsApp_Stage_2
 
 <p align="middle">
   <img src="../master/app/src/main/res/raw/portrait1.jpg" width="400" />
