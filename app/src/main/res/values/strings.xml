@@ -13,4 +13,122 @@
     <string name="output_format">yyyy-MM-dd</string>
     <string name="adapter_date_log_tag">formattedDateFromString</string>
     <string name="adapter_date_log_msg">Exception in formattedDate():\u0020</string>
+    <string name="coma">,\u0020</string>
+    <string name="built_url">Built URL:\u0020</string>
+
+    <string name="menu_settings">Settings</string>
+    <string name="settings_label">NewsApp Settings</string>
+
+    <string name="settings_search">Settings search ways:</string>
+    <string name="settings_selection">Settings selection methods:</string>
+
+    <string name="settings_keyword_search_label">Search by keyword&#8230;</string>
+    <string name="settings_keyword_search_key">q</string>
+    <string name="settings_keyword_search_default">news</string>
+
+    <string name="settings_from_date_label">Search from date&#8230;</string>
+    <string name="settings_from_date_key" translatable="false">from-date</string>
+    <string name="settings_from_date_default" translatable="false">2018-03-01</string>
+
+    <string name="settings_to_date_label">Search to date&#8230;</string>
+    <string name="settings_to_date_key" translatable="false">to-date</string>
+    <string name="settings_to_date_default" translatable="false">2018-05-06</string>
+
+    <string name="settings_section_label">Choose a section&#8230;</string>
+    <string name="settings_section_key" translatable="false">sections</string>
+
+    <string name="settings_order_by_label">Choose an order&#8230;</string>
+    <string name="settings_order_by_key" translatable="false">order-by</string>
+    <string name="settings_order_by_default" translatable="false">newest</string>
+
+    <string name="settings_page_size_label">Choose number of items&#8230;</string>
+    <string name="settings_page_size_key" translatable="false">page-size</string>
+    <string name="settings_page_size_default" translatable="false">20</string>
+
+    <string name="settings_section_art_label">Art and design</string>
+    <string name="settings_section_art_value">artanddesign</string>
+
+    <string name="settings_section_books_label">Books</string>
+    <string name="settings_section_books_value">books</string>
+
+    <string name="settings_section_business_label">Business</string>
+    <string name="settings_section_business_value">business</string>
+
+    <string name="settings_section_cities_label">Cities</string>
+    <string name="settings_section_cities_value">cities</string>
+
+    <string name="settings_section_culture_label">Culture</string>
+    <string name="settings_section_culture_value">culture</string>
+
+    <string name="settings_section_education_label">Education</string>
+    <string name="settings_section_education_value">education</string>
+
+    <string name="settings_section_environment_label">Environment</string>
+    <string name="settings_section_environment_value">environment</string>
+
+    <string name="settings_section_fashion_label">Fashion</string>
+    <string name="settings_section_fashion_value">fashion</string>
+
+    <string name="settings_section_film_label">Film</string>
+    <string name="settings_section_film_value">film</string>
+
+    <string name="settings_section_games_label">Games</string>
+    <string name="settings_section_games_value">games</string>
+
+    <string name="settings_section_info_label">Info</string>
+    <string name="settings_section_info_value">info</string>
+
+    <string name="settings_section_law_label">Law</string>
+    <string name="settings_section_law_value">law</string>
+
+    <string name="settings_section_lifeandstyle_label">Life and style</string>
+    <string name="settings_section_lifeandstyle_value">lifeandstyle</string>
+
+    <string name="settings_section_media_label">Media</string>
+    <string name="settings_section_media_value">media</string>
+
+    <string name="settings_section_money_label">Money</string>
+    <string name="settings_section_money_value">money</string>
+
+    <string name="settings_section_music_label">Music</string>
+    <string name="settings_section_music_value">music</string>
+
+    <string name="settings_section_news_label">News</string>
+    <string name="settings_section_news_value">news</string>
+
+    <string name="settings_section_politics_label">Politics</string>
+    <string name="settings_section_politics_value">politics</string>
+
+    <string name="settings_section_science_label">Science</string>
+    <string name="settings_section_science_value">science</string>
+
+    <string name="settings_section_society_label">Society</string>
+    <string name="settings_section_society_value">society</string>
+
+    <string name="settings_section_sport_label">Sport</string>
+    <string name="settings_section_sport_value">sport</string>
+
+    <string name="settings_section_technology_label">Technology</string>
+    <string name="settings_section_technology_value">technology</string>
+
+    <string name="settings_section_travel_label">Travel</string>
+    <string name="settings_section_travel_value">travel</string>
+
+    <string name="settings_section_uk_news_label">UK news</string>
+    <string name="settings_section_uk_news_value">uk-news</string>
+
+    <string name="settings_section_weather_label">Weather</string>
+    <string name="settings_section_weather_value">weather</string>
+
+    <string name="settings_section_world_label">World news</string>
+    <string name="settings_section_world_value">world</string>
+
+    <string name="settings_order_by_newest_label">by newest date</string>
+    <string name="settings_order_by_newest_value">newest</string>
+
+    <string name="settings_order_by_oldest_label">by oldest date</string>
+    <string name="settings_order_by_oldest_value">oldest</string>
+
+    <string name="settings_order_by_relevance_label">by relevance</string>
+    <string name="settings_order_by_relevance_value">relevance</string>
 </resources>

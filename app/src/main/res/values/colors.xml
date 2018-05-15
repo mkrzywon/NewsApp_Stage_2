@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFF</color>
     <color name="dark_gray">#A9A9A9</color>
+    <color name="swipeRefreshLayout_color1">#4286F4</color>
+    <color name="swipeRefreshLayout_color2">#1317DB</color>
+    <color name="swipeRefreshLayout_color3">#9C13DB</color>
 </resources>

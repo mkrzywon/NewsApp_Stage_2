@@ -31,7 +31,6 @@ class NewsUtils {
      */
     private static final String KEY_RESPONSE = "response";
     private static final String KEY_RESULTS = "results";
-    private static final String KEY_TAGS = "tags";
     private static final String KEY_FIELDS = "fields";
 
     /**
@@ -40,9 +39,15 @@ class NewsUtils {
     private static final String KEY_SECTION = "sectionName";
     private static final String KEY_DATE = "webPublicationDate";
     private static final String KEY_TITLE = "webTitle";
+    private static final String KEY_AUTHOR = "byline";
     private static final String KEY_URL = "webUrl";
     private static final String KEY_TRAIL_TEXT = "trailText";
     private static final String KEY_THUMBNAIL = "thumbnail";
+
+    /**
+     * empty string in case of situation there's no json data
+     */
+    private static final String KEY_EMPTY = "";
 
     private NewsUtils() {
     }
@@ -217,22 +222,6 @@ class NewsUtils {
                 // Extract the value for the key called "webUrl"
                 String url = currentArticle.optString(KEY_URL);
 
-                if (currentArticle.has(KEY_TAGS)) {
-
-                    // Extract the next JSONArray associated with the key called "tags"
-                    JSONArray tagsArray = currentArticle.getJSONArray(KEY_TAGS);
-
-                    // Extract the JSONObject associated with first position of the tagsArray
-                    JSONObject tagsObject = tagsArray.getJSONObject(0);
-
-                    if (tagsObject.has(KEY_TITLE)) {
-
-                        // Extract the value for the key called "webTitle"
-                        author = tagsObject.getString(KEY_TITLE);
-
-                    }
-                }
-
                 if (currentArticle.has(KEY_FIELDS)) {
 
                     // Extract the JSONObject associated with the key called "fields"
@@ -246,7 +235,18 @@ class NewsUtils {
                         // Extract the value for the key called "thumbnail"
                         thumbnailUrl = fieldsObject.getString(KEY_THUMBNAIL);
 
+                        // Extract the value for the key called "webTitle"
+                        author = fieldsObject.getString(KEY_AUTHOR);
+
                     }
+
+                    // return empty strings in case of situation where there's no filed object
+                } else {
+
+                    trailText = KEY_EMPTY;
+                    thumbnailUrl = KEY_EMPTY;
+                    author = KEY_EMPTY;
+
                 }
 
                 // Create a new {@link News} object with the category, date, title,

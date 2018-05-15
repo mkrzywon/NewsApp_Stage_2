@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings_label">
+
+    <PreferenceCategory android:title="@string/settings_search">
+
+        <EditTextPreference
+            android:defaultValue="@string/settings_keyword_search_default"
+            android:icon="@drawable/search_icon"
+            android:inputType="textNoSuggestions"
+            android:key="@string/settings_keyword_search_key"
+            android:selectAllOnFocus="true"
+            android:title="@string/settings_keyword_search_label" />
+
+        <EditTextPreference
+            android:defaultValue="@string/settings_from_date_default"
+            android:icon="@drawable/calendar_icon"
+            android:inputType="date"
+            android:key="@string/settings_from_date_key"
+            android:selectAllOnFocus="true"
+            android:title="@string/settings_from_date_label" />
+
+        <EditTextPreference
+            android:defaultValue="@string/settings_to_date_default"
+            android:icon="@drawable/calendar_icon"
+            android:inputType="date"
+            android:key="@string/settings_to_date_key"
+            android:selectAllOnFocus="true"
+            android:title="@string/settings_to_date_label" />
+
+        <EditTextPreference
+            android:defaultValue="@string/settings_page_size_default"
+            android:icon="@drawable/meter_icon"
+            android:inputType="number"
+            android:key="@string/settings_page_size_key"
+            android:selectAllOnFocus="true"
+            android:title="@string/settings_page_size_label" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_selection">
+
+        <MultiSelectListPreference
+            android:defaultValue="@array/empty_array"
+            android:dialogTitle="@string/settings_section_label"
+            android:entries="@array/settings_sections_by_labels"
+            android:entryValues="@array/settings_sections_by_values"
+            android:icon="@drawable/sections_icon"
+            android:key="@string/settings_section_key"
+
+            android:title="@string/settings_section_label" />
+
+        <ListPreference
+            android:defaultValue="@string/settings_order_by_default"
+            android:entries="@array/settings_order_by_labels"
+            android:entryValues="@array/settings_order_by_values"
+            android:icon="@drawable/order_by_icon"
+            android:key="@string/settings_order_by_key"
+            android:title="@string/settings_order_by_label" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

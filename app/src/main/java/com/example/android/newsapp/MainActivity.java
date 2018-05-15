@@ -4,11 +4,17 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,19 +22,27 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
+
+    private static final String LOG_TAG = MainActivity.class.getName();
 
     /**
      * URL for news data from the the Guardian dataset
      */
     private static final String GUARDIAN_REQUEST_URL =
-            "http://content.guardianapis.com/search?from-date=2018-03-01&order-by=newest&use-date=published&show-tags=contributor&show-fields=all&page-size=20&q=news%20AND%20Poland&api-key=test";
+            "https://content.guardianapis.com/search";
 
     /**
-     * Constant value for the article loader ID.
+     * Constant value for the article loader ID
      */
     private static final int NEWS_LOADER_ID = 1;
+
+    /**
+     * prefix used in the construction of sections string
+     */
+    private static final String SECTION_SEPARATOR = "|";
 
     /**
      * Adapter for the list of articles
@@ -39,6 +53,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyList;
+
+    /**
+     * SwipeRefreshLayout for refreshing the articles
+     */
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    /**
+     * Url constructor
+     */
+    private Uri.Builder uriBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +81,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         articleListView.setAdapter(mAdapter);
+
+        // Set the refresher for article list
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+
+        swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryDark),
+                getResources().getColor(R.color.swipeRefreshLayout_color1),
+                getResources().getColor(R.color.swipeRefreshLayout_color2),
+                getResources().getColor(R.color.swipeRefreshLayout_color3));
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                restartLoader();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected article.
@@ -81,16 +122,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        setLoader();
-    }
-
-    private void setLoader() {
-
         // Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager cm = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        if (cm !=null) {
+        if (cm != null) {
 
             // Get details on the currently active default data network
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
@@ -118,8 +154,76 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        Set<String> sectionValues = sharedPrefs.getStringSet(getString(R.string.settings_section_key), null);
+
+        if (sectionValues != null) {
+
+            String sections = "";
+
+            for (String section : sectionValues) {
+
+                String temp = sections.concat(SECTION_SEPARATOR).concat(section);
+
+                StringBuilder sb = new StringBuilder(temp);
+
+                int index = sb.indexOf(SECTION_SEPARATOR);
+
+                if (index < 1) {
+
+                    sb.delete(index, index + SECTION_SEPARATOR.length());
+
+                }
+
+                sections = sb.toString();
+
+            }
+
+            String fromDate = sharedPrefs.getString(
+                    getString(R.string.settings_from_date_key),
+                    getString(R.string.settings_from_date_default));
+
+            String toDate = sharedPrefs.getString(
+                    getString(R.string.settings_to_date_key),
+                    getString(R.string.settings_to_date_default));
+
+            String keywordSearch = sharedPrefs.getString(
+                    getString(R.string.settings_keyword_search_key),
+                    getString(R.string.settings_keyword_search_default));
+
+            String orderBy = sharedPrefs.getString(
+                    getString(R.string.settings_order_by_key),
+                    getString(R.string.settings_order_by_default));
+
+            String pageSize = sharedPrefs.getString(
+                    getString(R.string.settings_page_size_key),
+                    getString(R.string.settings_page_size_default));
+
+            Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+            uriBuilder = baseUri.buildUpon();
+
+            uriBuilder.appendQueryParameter("format", "json");
+            uriBuilder.appendQueryParameter("use-date", "published");
+            uriBuilder.appendQueryParameter("show-tags", "contributor");
+            uriBuilder.appendQueryParameter("show-fields", "all");
+            uriBuilder.appendQueryParameter("api-key", "6564320b-a05d-4650-9396-17c26f5f3582");
+            uriBuilder.appendQueryParameter("page-size", pageSize);
+            uriBuilder.appendQueryParameter("section", sections);
+            uriBuilder.appendQueryParameter("from-date", fromDate);
+            uriBuilder.appendQueryParameter("to-date", toDate);
+            uriBuilder.appendQueryParameter("q", keywordSearch);
+            uriBuilder.appendQueryParameter("order-by", orderBy);
+
+            // Log for checking if constructed URL is ok.
+            Log.v(LOG_TAG, getResources().getString(R.string.built_url) + uriBuilder);
+
+        }
+
         // Create a new loader for the given URL
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+        return new NewsLoader(this, uriBuilder.toString());
+
     }
 
     @Override
@@ -147,4 +251,49 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Get a reference to the LoaderManager, in order to interact with loaders.
+        LoaderManager loaderManager = getLoaderManager();
+
+        // Restart the loader.
+        loaderManager.restartLoader(NEWS_LOADER_ID, null, this);
+    }
+
+    // This method restarts loader (refreshing articles)
+    private void restartLoader() {
+
+        getLoaderManager().restartLoader(1, null, this);
+
+    }
+
+    // Toolbar menu and icons methods
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        // settings menu
+        if (id == R.id.menu_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+
+        // toolbar refresh icon for restarting loader (for someone with old phone for example)
+        if (id == R.id.menu_refresh) {
+            restartLoader();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

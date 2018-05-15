@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_sections_by_labels">
+        <item>@string/settings_section_art_label</item>
+        <item>@string/settings_section_books_label</item>
+        <item>@string/settings_section_business_label</item>
+        <item>@string/settings_section_cities_label</item>
+        <item>@string/settings_section_culture_label</item>
+        <item>@string/settings_section_education_label</item>
+        <item>@string/settings_section_environment_label</item>
+        <item>@string/settings_section_fashion_label</item>
+        <item>@string/settings_section_film_label</item>
+        <item>@string/settings_section_games_label</item>
+        <item>@string/settings_section_info_label</item>
+        <item>@string/settings_section_law_label</item>
+        <item>@string/settings_section_lifeandstyle_label</item>
+        <item>@string/settings_section_media_label</item>
+        <item>@string/settings_section_money_label</item>
+        <item>@string/settings_section_music_label</item>
+        <item>@string/settings_section_news_label</item>
+        <item>@string/settings_section_politics_label</item>
+        <item>@string/settings_section_science_label</item>
+        <item>@string/settings_section_society_label</item>
+        <item>@string/settings_section_sport_label</item>
+        <item>@string/settings_section_technology_label</item>
+        <item>@string/settings_section_travel_label</item>
+        <item>@string/settings_section_uk_news_label</item>
+        <item>@string/settings_section_weather_label</item>
+        <item>@string/settings_section_world_label</item>
+    </string-array>
+
+    <string-array name="settings_sections_by_values">
+        <item>@string/settings_section_art_value</item>
+        <item>@string/settings_section_books_value</item>
+        <item>@string/settings_section_business_value</item>
+        <item>@string/settings_section_cities_value</item>
+        <item>@string/settings_section_culture_value</item>
+        <item>@string/settings_section_education_value</item>
+        <item>@string/settings_section_environment_value</item>
+        <item>@string/settings_section_fashion_value</item>
+        <item>@string/settings_section_film_value</item>
+        <item>@string/settings_section_games_value</item>
+        <item>@string/settings_section_info_value</item>
+        <item>@string/settings_section_law_value</item>
+        <item>@string/settings_section_lifeandstyle_value</item>
+        <item>@string/settings_section_media_value</item>
+        <item>@string/settings_section_money_value</item>
+        <item>@string/settings_section_music_value</item>
+        <item>@string/settings_section_news_value</item>
+        <item>@string/settings_section_politics_value</item>
+        <item>@string/settings_section_science_value</item>
+        <item>@string/settings_section_society_value</item>
+        <item>@string/settings_section_sport_value</item>
+        <item>@string/settings_section_technology_value</item>
+        <item>@string/settings_section_travel_value</item>
+        <item>@string/settings_section_uk_news_value</item>
+        <item>@string/settings_section_weather_value</item>
+        <item>@string/settings_section_world_value</item>
+    </string-array>
+
+    <string-array name="empty_array" />
+
+    <string-array name="settings_order_by_labels">
+        <item>@string/settings_order_by_newest_label</item>
+        <item>@string/settings_order_by_oldest_label</item>
+        <item>@string/settings_order_by_relevance_label</item>
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/settings_order_by_newest_value</item>
+        <item>@string/settings_order_by_oldest_value</item>
+        <item>@string/settings_order_by_relevance_value</item>
+    </string-array>
+</resources>

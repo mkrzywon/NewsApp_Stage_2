@@ -31,6 +31,14 @@ class NewsAdapter extends ArrayAdapter<News> {
 
     private static final String TITLE_SEPARATOR = "\\| ";
 
+    private static final String FROM_HTML_BR1 = " <br />";
+
+    private static final String FROM_HTML_BR2 = "<br>";
+
+    private static final String FROM_HTML_STRONG1 = "<strong>";
+
+    private static final String FROM_HTML_STRONG2 = "</strong>";
+
     /**
      * Constructs a new {@link NewsAdapter}.
      *
@@ -73,10 +81,6 @@ class NewsAdapter extends ArrayAdapter<News> {
 
         }
 
-        // Check if there is an existing list item view (called convertView) that we can reuse,
-        // otherwise, if convertView is null, then inflate a new list item layout.
-
-
         // Find the article at the given position in the list of articles
         News article = getItem(position);
 
@@ -115,8 +119,35 @@ class NewsAdapter extends ArrayAdapter<News> {
             String dateFormatted = (convertView.getResources().getString(R.string.publishedOn) + formattedDate(date));
             holder.articleDate.setText(dateFormatted);
 
+            // Some trail texts contain html tags. Code below extracts trail text without these tags.
+            String trailText = article.getTrailText();
+            String preFormattedTrailText;
+            String[] parts;
+            if (trailText.contains(FROM_HTML_BR1)) {
+
+                parts = trailText.split(FROM_HTML_BR1);
+                preFormattedTrailText = parts[0];
+
+            } else if (trailText.contains(FROM_HTML_BR2)) {
+
+                parts = trailText.split(FROM_HTML_BR2);
+                preFormattedTrailText = parts[0];
+
+            } else if (trailText.contains(FROM_HTML_STRONG1) && trailText.contains(FROM_HTML_STRONG2)){
+
+                parts = trailText.split(FROM_HTML_STRONG1);
+                String tempTrailText = parts[1];
+
+                preFormattedTrailText = tempTrailText.replace(FROM_HTML_STRONG2, "");
+
+            } else {
+
+                preFormattedTrailText = trailText;
+
+            }
+
             // Setting the trail text field
-            String formattedTrailText = (article.getTrailText()) + convertView.getResources().getString(R.string.dots);
+            String formattedTrailText = (preFormattedTrailText + convertView.getResources().getString(R.string.dots));
             holder.trailText.setText(formattedTrailText);
 
             // Setting read more TextView with slight animation
