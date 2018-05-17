@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    /**
+     * URL constructor
+     */
+    Uri.Builder uriBuilder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,8 +202,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getString(R.string.settings_page_size_key),
                 getString(R.string.settings_page_size_default));
 
-        Uri.Builder uriBuilder;
-
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
         uriBuilder = baseUri.buildUpon();
 
@@ -210,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (pageSize.isEmpty()) {
 
-            uriBuilder.appendQueryParameter("", "");
+            emptyUri();
 
         } else {
 
@@ -220,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (sections.isEmpty()) {
 
-            uriBuilder.appendQueryParameter("", "");
+            emptyUri();
 
         } else {
 
@@ -230,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (fromDate.isEmpty()) {
 
-            uriBuilder.appendQueryParameter("", "");
+            emptyUri();
 
         } else {
 
@@ -240,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (toDate.isEmpty()) {
 
-            uriBuilder.appendQueryParameter("", "");
+            emptyUri();
 
         } else {
 
@@ -256,6 +259,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Create a new loader for the given URL
         return new NewsLoader(this, uriBuilder.toString());
+
+    }
+
+    private void emptyUri() {
+
+        uriBuilder.appendQueryParameter("", "");
 
     }
 
